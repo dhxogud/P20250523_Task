@@ -4,7 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
+#include "InputActionValue.h"
+
 #include "MyCharacter.generated.h"
+
+class UCameraComponent;
+class USpringArmComponent;
+class UInputAction;
+class UInputMappingContext;
 
 UCLASS()
 class P20250523_TASK_API AMyCharacter : public ACharacter
@@ -25,5 +33,30 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
+	void Zoom(const FInputActionValue& Value);
+
+	UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadOnly)
+	TObjectPtr<USpringArmComponent> CameraBoom;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadOnly)
+	TObjectPtr<UCameraComponent> Camera;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> IA_Jump;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> IA_Move;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> IA_Look;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> IA_Zoom;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputMappingContext> IMC_Default;
 
 };
